@@ -1,0 +1,20 @@
+
+/* util */
+.dib {
+  display: inline-block;
+}
+body{
+  background-color: #f1f8fa
+}
+.clear {
+    clear: both;
+  }
+.clear:after {
+    content: "";
+    display: block;
+    clear: both;
+    zoom:1;
+ }
+ #app{
+ 	height: 100%;
+ }

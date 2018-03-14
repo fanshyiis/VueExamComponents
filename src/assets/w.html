@@ -1,0 +1,269 @@
+<template>
+  <div>
+    <transition name="fade" v-if="mtop > -200">
+      <div class="bottomTab">
+        <div class="next_info">向左滑动进入下一篇</div>
+        <div class="next">下一题</div>
+      </div>
+    </transition>
+    <div :style="{ bottom: mtop + 'px'}" class="question">
+      <v-touch v-on:panmove="onPanup" v-on:panend="onPanend">
+        <div class="test">
+          <img class="icon_up" src="../../assets/icon_la.png">
+          <img class="icon_left" src="../../assets/icon_test.png">
+          <div>试题</div>
+        </div>
+      </v-touch>
+      <div class="item_title">
+        <Row :gutter="2">
+          <Col span="6">
+          <div class="item">
+            <div class="ans_all">
+              <div class="item_index">1</div>
+              <div class="item_ans">A</div>
+            </div>
+          </div>
+          </Col>
+          <Col span="6">
+          <div class="item">
+            <div class="ans_all">
+              <div class="item_index">2</div>
+              <div class="item_ans">C</div>
+            </div>
+          </div>
+          </Col>
+          <Col span="6">
+          <div class="item">
+            <div class="ans_all">
+              <div class="item_index">3</div>
+              <div class="item_ans">C</div>
+            </div>
+          </div>
+          </Col>
+          <Col span="6">
+          <div class="item">
+            <div class="ans_all">
+              <div class="item_index">4</div>
+              <div class="item_ans">D</div>
+            </div>
+          </div>
+          </Col>
+        </Row>
+      </div>
+      <v-touch v-on:swipeleft="changeQuestion" v-on:swiperight="changeQuestionR">
+        <div class="content">
+          <div class="q_title">当乒乓球的速度超过F-16超音速战斗机，你猜会发生什 么发生什？
+          </div>
+          <div class="q_item">
+            <div class="q_item_1">A</div>
+            <div class="q_item_2">如果你无法简洁的表达你的想法，那只说明你还不够了解它。 阿尔伯特·爱因斯坦-- 阿尔伯特·爱因斯坦-- 阿尔伯特·</div>
+          </div>
+          <div class="q_item">
+            <div class="q_item_1">B</div>
+            <div class="q_item_2">如果你无法简洁的表达你的想法，那只说明你还不够了解它。 阿尔伯特·爱因斯坦-- 阿尔伯特·爱因斯坦-- 阿尔伯特·</div>
+          </div>
+          <div class="q_item">
+            <div class="q_item_1">C</div>
+            <div class="q_item_2">如果你无法简洁的表达你的想法，那只说明你还不够了解它。 阿尔伯特·爱因斯坦-- 阿尔伯特·爱因斯坦-- 阿尔伯特·</div>
+          </div>
+          <div class="q_item">
+            <div class="q_item_1">D</div>
+            <div class="q_item_2">如果你无法简洁的表达你的想法，那只说明你还不够了解它。 阿尔伯特·爱因斯坦-- 阿尔伯特·爱因斯坦-- 阿尔伯特·</div>
+          </div>
+        </div>
+      </v-touch>
+    </div>
+  </div>
+</template>
+<script>
+export default {
+  data() {
+    return {
+      top: -418,
+      mtop: -418,
+      page: 1
+    }
+  },
+  methods: {
+    changeQuestion(e) {
+      this.page++
+    },
+    changeQuestionR(e) {
+      this.page--
+    },
+    onPanend(e) {
+      this.top = -e.deltaY + this.top
+      if (this.top < -418) {
+        this.top = -418
+      }
+      if (this.top > -10) {
+        this.top = -10
+      }
+    },
+    onPanup(e) {
+      this.mtop = -e.deltaY + this.top
+      if (this.mtop < -418) {
+        this.mtop = -418
+      }
+      if (this.mtop > -10) {
+        this.mtop = -10
+      }
+    }
+  },
+  created() {
+    document.getElementsByTagName('body')[0].setAttribute('style', 'min-width:100px!important;height:100%')
+    var oMeta = document.createElement('meta')
+    oMeta.name = 'viewport'
+    oMeta.content = 'width=device-width,initial-scale=1,user-scalable=0-8'
+    document.getElementsByTagName('head')[0].appendChild(oMeta)
+  }
+}
+
+</script>
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.q_item {
+  margin-bottom: 15px;
+  padding: 10px 5px;
+  min-height: 60px;
+}
+
+.q_item_1 {
+  font-size: 20px;
+  font-weight: 500;
+  width: 10%;
+  float: left;
+}
+
+.q_item_2 {
+  font-size: 14px;
+  width: 90%;
+  float: left;
+}
+
+.q_title {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity .5s
+}
+
+.fade-enter,
+.fade-leave-to
+/* .fade-leave-active in below version 2.1.8 */
+
+{
+  opacity: 0
+}
+
+.next {
+  background-color: #00aeff;
+  float: right;
+  width: 100px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  line-height: 45px;
+}
+
+.next_info {
+  float: left;
+  width: 180px;
+  text-align: center;
+  color: #fff;
+  font-size: 16px;
+  line-height: 45px;
+}
+
+.ans_all {
+  margin: auto;
+  width: 50px;
+}
+
+.item_index {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 30px;
+  float: left;
+}
+
+.item_ans {
+  font-size: 16px;
+  font-weight: 500;
+  margin-left: 15px;
+  text-align: center;
+  line-height: 30px;
+  border-radius: 15px;
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
+}
+
+.item {
+  padding-top: 5px;
+  height: 40px;
+  background-color: #f3f3f3
+}
+
+.item_title {
+  line-height: 40px;
+  text-align: center;
+  height: 40px;
+}
+
+.icon_up {
+  left: 50%;
+  margin-left: -29px;
+  top: -15px;
+  width: 58px;
+  position: absolute;
+}
+
+.icon_left {
+  margin-right: 5px;
+  margin-left: 10px;
+  margin-top: 10px;
+  float: left;
+  width: 20px;
+}
+
+.bottomTab {
+  z-index: 9999;
+  position: fixed;
+  bottom: 0px;
+  width: 100%;
+  height: 45px;
+  background-color: #424242;
+}
+
+.content {
+  padding: 10px;
+  text-align: left;
+  color: #333;
+  width: 100%;
+  height: 365px;
+}
+
+.test {
+  position: relative;
+  line-height: 40px;
+  font-size: 16px;
+  font-weight: 500;
+  color: #fff;
+  width: 100%;
+  height: 40px;
+  background-color: #00aeff;
+}
+
+.question {
+  z-index: 999;
+  position: fixed;
+  width: 100%;
+  height: 500px;
+  background-color: #fff;
+}
+
+</style>
