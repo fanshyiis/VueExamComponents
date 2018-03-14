@@ -19,8 +19,6 @@
 </div>
   <div class="main" v-show="about">
     <div class="header">
-    <!-- sss -->
-<!--       <img class="img_header" style="margin-right: 2em;" src="../../assets/book.png"> -->
       <img class="img_header" style="margin-right: 15px;" src="../../assets/set.png" @click="showSet = !showSet">
       <img class="img_header2" style="margin-left: 15px;" src="../../assets/bac2.png" @click="Quit()">
       <div class="clock_top" v-if="!examStatus"><Icon type="ios-clock"></Icon> {{time.f}} : {{time.m}}</div>
@@ -157,11 +155,7 @@
     </div>
   </div>
   <div class="dictionary" style="text-align:center" :class="[{showDictionary: showDic}]">
-<!--     <div class="dicText" id="selectText">"{{selectText}}"</div> -->
-    <!-- <img style="width:200px;margin-top:100px;" src="../../assets/loading.gif"> -->
     <div class="loadDic">加载中...</div>
-<!--     <div class="loadDic" v-show="noDic"> 暂无释义</div>
-    <div class="go dicGoBack" @click="showDic = !showDic">返回</div> -->
   </div>
   <div class="dictionary2" v-if="showBack">
     <div class="sure_modal">
@@ -216,6 +210,11 @@
        }
      
   }`
+
+  // 示例返回数据
+
+  // {"data":{"user":{"id":184761,"passageTask":{"id":243052,"examStatus":"NotDone","questionNum":2,"correctNum":0,"examRecord":{"id":912637,"answer":[],"questions":[{"questionId":127527,"title":"小柳树留在妈妈身边能得到什么？回答不正确的是（）。","body":"","correctId":null,"correctReason":"","options":[{"id":1,"content":"妈妈的照顾"},{"id":2,"content":"爷爷奶奶的保护"},{"id":3,"content":"安全感"},{"id":4,"content":"充足的阳光"}]},{"questionId":127528,"title":"小柳树为什么长不大？","body":"","correctId":null,"correctReason":"","options":[{"id":1,"content":"因为小柳树没有经受成长的历练，也没有获得足够的营养。"},{"id":2,"content":"因为小柳树生长的地方太贫瘠。"},{"id":3,"content":"因为小柳树年龄还小，还需要再多长几年。"},{"id":4,"content":"因为小柳树本来就长不大。"}]}]},"passage":{"isLike":false,"suggestReadTime":2,"wordCount":420,"id":254,"title":"小柳树","difficulty":"Challenge","erScore":530,"imgUrl":"https://koalareading-online.oss-cn-beijing.aliyuncs.com/books/images/6ec029f2fbed45d8a6434557c73826f6.jpg","content":"<p>&nbsp; &nbsp; &nbsp; &nbsp; 小河边，生活着一棵头发长长的、绿绿的柳树妈妈。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 有一天，柳絮宝宝对妈妈说：“妈妈，我已经成熟了，让风姐姐带我到远方去旅行扎根吧。”</p><p>&nbsp; &nbsp; &nbsp; &nbsp; “不，孩子，你离开妈妈的照顾，离开周围爷爷奶奶们的保护，是长不好的，还是留在我身边吧。”</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 但是柳絮宝宝的兄弟姐妹都随风姐姐到远处的开阔地扎根落土了。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 春天到了，柳絮宝宝从泥土里钻出来，看看妈妈高大的身躯，再看周围爷爷奶奶们巨大的枝干，一种安全感油然而生。柳絮宝宝变成了小柳树。<img src=\"https://xykj-koala-demo.oss-cn-beijing.aliyuncs.com/books/images/8d245f0f848141cf8e63486d2554d707.jpg\"></p><p>&nbsp; &nbsp; &nbsp; &nbsp; 大风刮来，呼呼作响，有爷爷奶奶们的包围，小柳树安然无恙；暴雨如注，有妈妈做伞，小柳树如在温室。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 小柳树心想，幸亏我没随风姐姐到远处去落土，不然我该怎样抵挡风雨啊！</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 可是，当小柳树要吸吮土壤中养分的时候，营养已被爷爷奶奶们吸走；他要迎接阳光雨露，却被妈妈的高大身躯遮住。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 这样，一年又一年地过去了，小柳树还是那么小，他成了长不大的小不点啦。</p><p>&nbsp; &nbsp; &nbsp; &nbsp; 这一天，风姐姐告诉小柳树，它的哥哥姐姐们早已长成参天大树的时候，小柳树可羡慕啦！它也好想像哥哥姐姐们一样啊！</p>"}}}}}
+
   import { Swiper, SwiperItem, XButton, Range, Group, GroupTitle, Cell, Scroller } from 'vux'
   export default {
     data () {
@@ -280,11 +279,12 @@
       XButton
     },
     methods: {
+      // 收藏
       Favorite (num) {
         console.log(this.passageId)
         if (num === 0) {
           this.axios({
-            baseURL: 'https://www.enjoyreading.net',
+            baseURL: 'https://www.xxx.com',
             method: 'POST',
             url: `/books/web/passage/favoriteIsland?passageId=${this.passageId}`
           })
@@ -297,7 +297,7 @@
           })
         } else {
           this.axios({
-            baseURL: 'https://www.enjoyreading.net',
+            baseURL: 'https://www.xxx.com',
             method: 'DELETE',
             url: `/books/web/passage/favorite/${this.passageId}`
           })
@@ -310,13 +310,13 @@
           })
         }
       },
+
+      // 分享
       goShare () {
-        // this.user = '11111'
-        setTimeout(() => {
-          window.AndroidWebView.share()
-        }, 100)
         window.webkit.messageHandlers.share.postMessage('')
       },
+      
+      // 提交答案
       goSubmit () {
         if (this.submit) {
           return false
@@ -341,7 +341,7 @@
           }
         })
         this.axios({
-          baseURL: 'https://www.enjoyreading.net',
+          baseURL: 'https://www.xxx.com',
           method: 'POST',
           url: `/tasks/web/steps/studentTasks/${this.taskId}/submit`,
           data: answer
@@ -356,25 +356,12 @@
               c++
             }
           })
-          window.zhuge.track('成功完成老师任务(' + this.typeName + ')', {
-            '任务类型': this.typeName,
-            '短文Id': this.passageTask.stepMeta.id,
-            '短文题目': this.passageTask.stepMeta.title,
-            '短文ER': this.passageTask.stepMeta.erScore,
-            '是否通过': res.data.hasPass ? '是' : '否',
-            '对错信息': d + '对' + c + '错',
-            '本次任务使用时间': this.startTimeTop
-          })
           this.submit = false
           this.resultAn = res.data
-          setTimeout(() => {
-            window.AndroidWebView.getSubmitResult(JSON.stringify(this.resultAn))
-          }, 100)
           window.webkit.messageHandlers.result.postMessage(Number(res.data.timestamp))
           console.log(res)
         })
         .catch(err => {
-          // this.user = err.response.data
           if (err.response.data.code === 400) {
             this.message(err.response.data.message)
             setTimeout(() => {
@@ -400,6 +387,8 @@
           this.messageShow2 = false
         }, 1000)
       },
+
+      // 选择答案
       setAnswer (index, id) {
         this.TimeEnd = (new Date()).getTime()
         console.log(index, id)
@@ -413,15 +402,18 @@
         console.log(que[index])
         this.TimeStart = (new Date()).getTime()
       },
+
+      // 开始考试
       ladderStart () {
         this.axios({
-          baseURL: 'https://www.enjoyreading.net',
+          baseURL: 'https://www.xxx.com',
           method: 'POST',
           url: `/tasks/web/steps/studentTasks/${this.taskId}/start`
         })
       },
+
+      // 获取短文内容
       getPassage () {
-        // this.showDic = true
         this.$apollo.query({
           query: PassageStudentTask,
           fetchPolicy: 'network-only',
@@ -495,6 +487,8 @@
       TestPad () {
         this.SKey++
       },
+
+      // 时间开始
       startTime () {
         this.startTimeTop ++
         this.timeTrans(this.startTimeTop)
@@ -502,6 +496,8 @@
           this.startTime()
         }, 1000)
       },
+
+      // 时间转换
       timeTrans (val) {
         let f = parseInt(val / 60)
         let m = val % 60
@@ -684,7 +680,7 @@
       this.position = this.clientHeight / 2
       this.positionEnd = this.clientHeight / 2
       this.axios({
-        baseURL: 'https://www.enjoyreading.net',
+        baseURL: 'https://www.xxx.com',
         method: 'GET',
         url: `/users/web/user/current`
       })
