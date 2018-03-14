@@ -2,7 +2,9 @@
 
 > 效果图
 
-## gogogo
+## 手机打开或浏览器仿真
+
+https://www.enjoyreading.net/er-collect/koalaPassage?userId=184761&taskId=243052
 
 ![效果图](http://koalareading-online.oss-cn-beijing.aliyuncs.com/h5/img/WechatIMG58.jpeg)
 
